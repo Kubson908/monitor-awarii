@@ -9,4 +9,8 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+  @Get("/awarie/:id") 
+  getMalfunctionById() {
+    return this.appService.getMalfunction();
+  }
 }
