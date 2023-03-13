@@ -1,1 +1,1 @@
-# Projekt_Zespo-owy_ITM
+# Projekt Zespołowy
