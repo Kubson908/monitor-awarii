@@ -1,1 +1,0 @@
-# Projekt Zespołowy
