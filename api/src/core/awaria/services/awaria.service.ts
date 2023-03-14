@@ -4,7 +4,7 @@ import { Awaria } from 'src/core/database/entities';
 
 @Injectable()
 export class AwariaService {
-    async listAwaria() {
+    async awariaList() {
         const awarie = await dataSource
             .createQueryBuilder()
             .select("awaria")
