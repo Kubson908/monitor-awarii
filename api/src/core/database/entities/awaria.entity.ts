@@ -44,7 +44,7 @@ export class Awaria {
     @JoinColumn({name: "id_pracownika"})
     pracownik: Pracownik
 
-    @OneToOne(type => Stanowisko)
+    @ManyToOne(type => Stanowisko)
     @JoinColumn({name: "id_stanowiska"})
     stanowisko: Stanowisko
 

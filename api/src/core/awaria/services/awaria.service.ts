@@ -2,9 +2,11 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { dataSource } from 'src/core/database/database.provider';
 import { Awaria, Pracownik, Stanowisko } from 'src/core/database/entities';
 import { CreateAwariaDto } from '../dtos/create-awaria.dto';
+import { Gateway } from '../../../gateway/gateway'
 
 @Injectable()
 export class AwariaService {
+  constructor(private gateway: Gateway) {}
   async awariaList() {
     const awarie = await dataSource
       .getRepository(Awaria)
@@ -29,10 +31,6 @@ export class AwariaService {
   async createAwaria(createAwariaDto: CreateAwariaDto) {
     const newAwaria = new Awaria();
 
-    const pracownik = await dataSource
-      .getRepository(Pracownik)
-      .findOne({ where: { id: createAwariaDto.pracownik } });
-
     const stanowisko = await dataSource
       .getRepository(Stanowisko)
       .findOne({ where: { id: createAwariaDto.stanowisko } });
@@ -43,20 +41,15 @@ export class AwariaService {
         HttpStatus.NOT_FOUND,
       );
 
-    if (!pracownik)
-      throw new HttpException(
-        'Nie znaleziono pracownika o podanym ID',
-        HttpStatus.NOT_FOUND,
-      );
-
     newAwaria.opis_awarii = createAwariaDto.opis_awarii;
     newAwaria.priorytet = createAwariaDto.priorytet;
     newAwaria.stanowisko = stanowisko;
     newAwaria.status = createAwariaDto.status;
-    newAwaria.pracownik = pracownik;
 
     const awariaRepository = await dataSource.getRepository(Awaria);
     await awariaRepository.save(newAwaria);
+    
+    this.gateway.server.emit("newAwaria", {newAwaria})
 
     return 'Success';
   }

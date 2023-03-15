@@ -1,7 +1,8 @@
+import { PriorityType, StatusType } from '../../../typings/awaria.types'
+
 export class CreateAwariaDto {
   opis_awarii: string;
-  status: 'Oczekująca' | 'Podjęta' | 'Ukończona';
-  priorytet: 'Wysoki' | 'Niski' | 'Średni';
-  pracownik: number;
+  status: StatusType
+  priorytet: PriorityType
   stanowisko: number;
 }
