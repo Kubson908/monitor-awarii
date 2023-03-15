@@ -22,7 +22,7 @@ export class AwariaController {
   awariaById(@Param('id') id: string) {
     return this.awariaService.awariaById(id);
   }
-  @Post('/create')
+  @Post('/dodaj')
   createAwaria(@Body() createAwariaDto: CreateAwariaDto) {
     return this.awariaService.createAwaria(createAwariaDto);
   }

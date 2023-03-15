@@ -7,10 +7,8 @@ import { CreateAwariaDto } from '../dtos/create-awaria.dto';
 export class AwariaService {
   async awariaList() {
     const awarie = await dataSource
-      .createQueryBuilder()
-      .select('awaria')
-      .from(Awaria, 'awaria')
-      .getMany();
+      .getRepository(Awaria)
+      .find();
     return awarie;
   }
 
@@ -56,7 +54,6 @@ export class AwariaService {
     newAwaria.stanowisko = stanowisko;
     newAwaria.status = createAwariaDto.status;
     newAwaria.pracownik = pracownik;
-    newAwaria.data_podjecia = await new Date().toJSON().split('.')[0];
 
     const awariaRepository = await dataSource.getRepository(Awaria);
     await awariaRepository.save(newAwaria);
