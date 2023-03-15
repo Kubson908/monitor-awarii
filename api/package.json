@@ -28,6 +28,8 @@
     "@nestjs/platform-socket.io": "^9.3.9",
     "@nestjs/typeorm": "^9.0.1",
     "@nestjs/websockets": "^9.3.9",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "dependencies": "^0.0.1",
     "mssql": "^7.3.5",
     "mysql2": "^3.2.0",
