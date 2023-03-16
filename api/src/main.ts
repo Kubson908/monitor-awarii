@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.setGlobalPrefix('api');
   await app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  await app.listen(443);
+  await app.listen(process.env.PORT);
   await dataSource
     .initialize()
     .then(() => {
