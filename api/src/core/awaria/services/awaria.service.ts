@@ -1,16 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { dataSource } from 'src/core/database/database.provider';
-import { Awaria, Pracownik, Stanowisko } from 'src/core/database/entities';
+import { Awaria, Stanowisko } from 'src/core/database/entities';
 import { CreateAwariaDto } from '../dtos/create-awaria.dto';
-import { Gateway } from '../../../gateway/gateway'
+import { Gateway } from '../../../gateway/gateway';
 
 @Injectable()
 export class AwariaService {
   constructor(private gateway: Gateway) {}
   async awariaList() {
-    const awarie = await dataSource
-      .getRepository(Awaria)
-      .find();
+    const awarie = await dataSource.getRepository(Awaria).find();
     return awarie;
   }
 
@@ -48,9 +46,36 @@ export class AwariaService {
 
     const awariaRepository = await dataSource.getRepository(Awaria);
     await awariaRepository.save(newAwaria);
-    
-    this.gateway.server.emit("newAwaria", {newAwaria})
+
+    this.gateway.server.emit('newAwaria', { newAwaria });
+    console.log('Nowa awaria');
 
     return 'Success';
+  }
+
+  async claimAwaria(id) {
+    const awariaRepository = await dataSource.getRepository(Awaria);
+    try { 
+      await awariaRepository.update(id, {status: 2});
+    } 
+    catch(e) {
+      throw new HttpException(
+        `Nie znaleziono awarii o podanym id równym < ${id} >`,
+        HttpStatus.NO_CONTENT,
+      );
+    }
+  }
+
+  async finishAwaria(id) {
+    const awariaRepository = await dataSource.getRepository(Awaria);
+    try { 
+      await awariaRepository.update(id, {status: 3});
+    } 
+    catch(e) {
+      throw new HttpException(
+        `Nie znaleziono awarii o podanym id równym < ${id} >`,
+        HttpStatus.NO_CONTENT,
+      );
+    }
   }
 }

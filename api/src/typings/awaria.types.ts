@@ -1,2 +1,2 @@
-export type StatusType = 'Oczekująca' | 'Podjęta' | 'Ukończona';
-export type PriorityType = 'Wysoki' | 'Średni' | 'Niski';
+export type StatusType = 1 | 2 | 3;
+export type PriorityType = 1 | 2 | 3;

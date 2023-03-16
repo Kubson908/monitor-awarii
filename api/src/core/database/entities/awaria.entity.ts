@@ -14,16 +14,16 @@ export class Awaria {
     opis_awarii: string;
 
     @Column({
-        type: "varchar",
+        type: "integer",
         nullable: false,
     })
-    status: string;
+    status: number;
 
     @Column({
-        type: "varchar",
+        type: "integer",
         nullable: false,
     })
-    priorytet: string;
+    priorytet: number;
 
     @CreateDateColumn()
     data_zgloszenia: string;

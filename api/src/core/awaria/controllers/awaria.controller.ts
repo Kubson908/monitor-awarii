@@ -7,6 +7,8 @@ import {
   Post,
   UsePipes,
   ValidationPipe,
+  Patch, 
+  Headers
 } from '@nestjs/common';
 import { AwariaService } from '../services/awaria.service';
 import { CreateAwariaDto } from '../dtos/create-awaria.dto';
@@ -26,4 +28,12 @@ export class AwariaController {
   createAwaria(@Body() createAwariaDto: CreateAwariaDto) {
     return this.awariaService.createAwaria(createAwariaDto);
   }
+  @Patch('/:id/podejmij')
+  claimAwaria(@Param('id') id: string, @Headers('x-access-token') token: string) {
+    return this.awariaService.claimAwaria(id);
+  }
+  @Patch('/:id/ukoncz')
+  finishAwaria(@Param('id') id: string, @Headers('x-access-token') token: string) {
+    return this.awariaService.finishAwaria(id)
+  } 
 }
