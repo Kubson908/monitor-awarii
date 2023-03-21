@@ -4,6 +4,9 @@ import { AppModule } from './app.module';
 import { dataSource } from './core/database/database.provider';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  await app.enableCors({
+    origin: 'http://localhost:3000',
+  });
   await app.setGlobalPrefix('api');
   await app.useGlobalPipes(new ValidationPipe({ transform: true }));
   await app.listen(process.env.PORT);
