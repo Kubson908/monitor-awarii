@@ -1,24 +1,21 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { dataSource } from 'src/core/database/database.provider';
 import { Awaria, Stanowisko } from 'src/core/database/entities';
 import { CreateAwariaDto } from '../dtos/create-awaria.dto';
 import { Gateway } from '../../../gateway/gateway';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AwariaService {
-  constructor(private gateway: Gateway) {}
+  constructor(private gateway: Gateway, @InjectRepository(Awaria) private awariaRepository: Repository<Awaria>, 
+    @InjectRepository(Stanowisko) private stanowiskoRepository: Repository<Stanowisko>) {}
   async awariaList() {
-    const awarie = await dataSource.getRepository(Awaria).find();
+    const awarie = await this.awariaRepository.find();
     return awarie;
   }
 
   async awariaById(id) {
-    const awaria = await dataSource
-      .createQueryBuilder()
-      .select('awaria')
-      .from(Awaria, 'awaria')
-      .where('awaria.id = :_id', { _id: id })
-      .getOne();
+    const awaria = await this.awariaRepository.findOneBy({ id });
     if (awaria) return awaria;
     throw new HttpException(
       'Nie znaleziono awarii o podanym ID',
@@ -29,8 +26,9 @@ export class AwariaService {
   async createAwaria(createAwariaDto: CreateAwariaDto) {
     const newAwaria = new Awaria();
 
-    const stanowisko = await dataSource
-      .getRepository(Stanowisko)
+    const stanowisko = await 
+    
+    await this.stanowiskoRepository
       .findOne({ where: { id: createAwariaDto.stanowisko } });
 
     if (!stanowisko)
@@ -44,8 +42,7 @@ export class AwariaService {
     newAwaria.stanowisko = stanowisko;
     newAwaria.status = createAwariaDto.status;
 
-    const awariaRepository = await dataSource.getRepository(Awaria);
-    await awariaRepository.save(newAwaria);
+    await this.awariaRepository.save(newAwaria);
 
     this.gateway.server.emit('newAwaria', { newAwaria });
     console.log('Nowa awaria');
@@ -54,9 +51,8 @@ export class AwariaService {
   }
 
   async claimAwaria(id) {
-    const awariaRepository = await dataSource.getRepository(Awaria);
     try { 
-      await awariaRepository.update(id, {status: 2});
+      await this.awariaRepository.update(id, {status: 2});
     } 
     catch(e) {
       throw new HttpException(
@@ -67,9 +63,8 @@ export class AwariaService {
   }
 
   async finishAwaria(id) {
-    const awariaRepository = await dataSource.getRepository(Awaria);
     try { 
-      await awariaRepository.update(id, {status: 3});
+      await this.awariaRepository.update(id, {status: 3});
     } 
     catch(e) {
       throw new HttpException(
