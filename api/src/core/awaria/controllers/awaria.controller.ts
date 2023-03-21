@@ -8,10 +8,13 @@ import {
   UsePipes,
   ValidationPipe,
   Patch, 
-  Headers
+  Headers,
+  UseGuards
 } from '@nestjs/common';
+
 import { AwariaService } from '../services/awaria.service';
 import { CreateAwariaDto } from '../dtos/create-awaria.dto';
+import { JwtGuard } from 'src/core/auth/jwt.guard';
 
 @Controller('awarie')
 export class AwariaController {
