@@ -23,6 +23,6 @@ import { JwtService } from '@nestjs/jwt';
     TypeOrmModule.forRoot(DB_Config)
   ],
   controllers: [AppController],
-  providers: [AppService, AuthService /*{provide: APP_GUARD, useClass: JwtGuard}*/, JwtService],
+  providers: [AppService, AuthService, {provide: APP_GUARD, useClass: JwtGuard}, JwtService],
 })
 export class AppModule {}

@@ -25,10 +25,8 @@ export class AwariaService {
 
   async createAwaria(createAwariaDto: CreateAwariaDto) {
     const newAwaria = new Awaria();
-
-    const stanowisko = await 
     
-    await this.stanowiskoRepository
+    const stanowisko = await this.stanowiskoRepository
       .findOne({ where: { id: createAwariaDto.stanowisko } });
 
     if (!stanowisko)
