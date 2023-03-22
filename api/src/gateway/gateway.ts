@@ -10,7 +10,7 @@ import { Socket } from 'net';
 import { Server } from 'socket.io';
 
 @WebSocketGateway({
-  cors: { origin: 'http://localhost:3000', credentials: true },
+  cors: { origin: 'http://localhost:3000', credentials: true, transports: ['websocket', 'polling']},
 })
 export class Gateway implements OnModuleInit {
   @WebSocketServer()
