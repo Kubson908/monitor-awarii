@@ -11,12 +11,15 @@ import { AppService } from './app.service';
 import { AuthService } from './core/auth/auth.service';
 import { LocalAuthGuard } from './core/auth/local-auth.guard';
 import { LoginDto } from './core/auth/login.dto';
+import { Public } from './core/decorators/public.decorator';
+
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly authService: AuthService,
   ) {}
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req) {
