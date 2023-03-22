@@ -10,7 +10,10 @@ export class AwariaService {
   constructor(private gateway: Gateway, @InjectRepository(Awaria) private awariaRepository: Repository<Awaria>, 
     @InjectRepository(Stanowisko) private stanowiskoRepository: Repository<Stanowisko>) {}
   async awariaList() {
-    const awarie = await this.awariaRepository.find();
+    const awarie = await this.awariaRepository.find({relations: {
+      stanowisko: true,
+      pracownik: true
+    }});
     return awarie;
   }
 

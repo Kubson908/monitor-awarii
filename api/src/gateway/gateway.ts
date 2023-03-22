@@ -4,12 +4,12 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-  ConnectedSocket
+  ConnectedSocket,
 } from '@nestjs/websockets';
 import { Socket } from 'net';
 import { Server } from 'socket.io';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: { origin: 'http://localhost:3000' } })
 export class Gateway implements OnModuleInit {
   @WebSocketServer()
   server: Server;
@@ -22,11 +22,11 @@ export class Gateway implements OnModuleInit {
   }
 
   @SubscribeMessage('Awaria')
-  onNewMessage(@MessageBody() body: any, @ConnectedSocket() socket: Socket ) {
+  onNewMessage(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
     console.log(body);
     socket.emit('Awaria', {
-        msg: 'Witam',
-        content: body
-    })
+      msg: 'Witam',
+      content: body,
+    });
   }
 }
