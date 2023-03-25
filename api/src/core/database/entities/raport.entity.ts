@@ -7,11 +7,18 @@ export class Raport {
     })
     id: number;
 
-    @Column({
+    @CreateDateColumn({
         type: "datetime",
         nullable: false,
     })
     czas: string;
+
+    @Column({
+        type: "varchar",
+        length: 999,
+        nullable: true,
+    })
+    opis: string;
 
     @OneToOne(type => Awaria)
     @JoinColumn({name: "id_awarii"})
