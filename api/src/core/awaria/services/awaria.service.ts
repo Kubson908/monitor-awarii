@@ -13,7 +13,7 @@ export class AwariaService {
     @InjectRepository(Stanowisko)
     private stanowiskoRepository: Repository<Stanowisko>,
     @InjectRepository(Pracownik)
-    private pracownikRepository: Repository<Stanowisko>,
+    private pracownikRepository: Repository<Pracownik>,
   ) {}
   async awariaList() {
     const awarie = await this.awariaRepository.find({
