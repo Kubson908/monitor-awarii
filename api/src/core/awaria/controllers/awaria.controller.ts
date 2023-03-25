@@ -22,6 +22,12 @@ export class AwariaController {
   awariaList() {
     return this.awariaService.awariaList();
   }
+  @Get('/ukonczone')
+  @Roles(Role.Monitor)
+  finishedAwariaList() {
+    return this.awariaService.finishedAwariaList();
+  }
+
   @Get(':id')
   awariaById(@Param('id') id: string) {
     return this.awariaService.awariaById(id);
