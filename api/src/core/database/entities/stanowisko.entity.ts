@@ -18,6 +18,13 @@ export class Stanowisko {
         length: 999,
         nullable: false,
     })
+    nazwa: string;
+
+    @Column({
+        type: "varchar",
+        length: 999,
+        nullable: false,
+    })
     opis: string;
 
 }

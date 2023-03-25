@@ -7,7 +7,6 @@ import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class PracownikService {
-  private pracownik: Pracownik;
   constructor(
     @InjectRepository(Pracownik)
     private pracownikRepository: Repository<Pracownik>,
@@ -27,6 +26,7 @@ export class PracownikService {
     newPracownik.nazwisko = createPracownikDto.nazwisko
     newPracownik.login = createPracownikDto.login
     newPracownik.haslo = await bcrypt.hash(createPracownikDto.haslo, 10)
+    newPracownik.rola = createPracownikDto.rola
     await this.pracownikRepository.save(newPracownik);
   }
 }

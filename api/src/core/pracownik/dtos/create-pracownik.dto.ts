@@ -1,4 +1,5 @@
-import { IsString } from 'class-validator';
+import { IsString, IsEnum } from 'class-validator';
+import { Role } from 'src/core/auth/enums/role.enum';
 
 export class CreatePracownikDto {
   @IsString()
@@ -9,4 +10,7 @@ export class CreatePracownikDto {
   login: string;
   @IsString()
   haslo: string;
+  @IsString()
+  @IsEnum(Role)
+  rola: string;
 }

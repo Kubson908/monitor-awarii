@@ -31,5 +31,12 @@ export class Pracownik {
         nullable: false,
     })
     haslo: string;
+    
+    @Column({
+        type: "varchar",
+        length: 64,
+        nullable: false,
+    })
+    rola: string;
 
 }

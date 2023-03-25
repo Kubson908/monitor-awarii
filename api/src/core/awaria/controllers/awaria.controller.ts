@@ -2,24 +2,23 @@ import {
   Body,
   Controller,
   Get,
-  HttpCode,
   Param,
   Post,
-  UsePipes,
-  ValidationPipe,
   Patch, 
   Headers,
-  UseGuards
+  Request
 } from '@nestjs/common';
 
 import { AwariaService } from '../services/awaria.service';
 import { CreateAwariaDto } from '../dtos/create-awaria.dto';
-import { JwtGuard } from 'src/core/auth/jwt.guard';
+import { Role } from 'src/core/auth/enums/role.enum';
+import { Roles } from 'src/core/decorators/roles.decorator';
 
 @Controller('awarie')
 export class AwariaController {
   constructor(private awariaService: AwariaService) {}
   @Get('/lista')
+  @Roles(Role.Monitor)
   awariaList() {
     return this.awariaService.awariaList();
   }
@@ -31,12 +30,14 @@ export class AwariaController {
   createAwaria(@Body() createAwariaDto: CreateAwariaDto) {
     return this.awariaService.createAwaria(createAwariaDto);
   }
+  @Roles(Role.Pracownik)
   @Patch('/:id/podejmij')
-  claimAwaria(@Param('id') id: string, @Headers('x-access-token') token: string) {
-    return this.awariaService.claimAwaria(id);
+  claimAwaria(@Param('id') id: string, @Request() req) {
+    return this.awariaService.claimAwaria(id, req);
   }
+  @Roles(Role.Pracownik)
   @Patch('/:id/ukoncz')
-  finishAwaria(@Param('id') id: string, @Headers('x-access-token') token: string) {
-    return this.awariaService.finishAwaria(id)
+  finishAwaria(@Param('id') id: string, @Request() req) {
+    return this.awariaService.finishAwaria(id, req)
   } 
 }
