@@ -128,6 +128,8 @@ export class AwariaService {
         HttpStatus.NO_CONTENT,
       );
     }
+
+    return 'Success';
   }
 
   async finishAwaria(id, req) {
@@ -177,5 +179,7 @@ export class AwariaService {
         HttpStatus.NO_CONTENT,
       );
     }
+
+    return 'Success';
   }
 }
