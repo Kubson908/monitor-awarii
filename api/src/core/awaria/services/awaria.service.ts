@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Awaria, Stanowisko, Pracownik } from 'src/core/database/entities';
 import { CreateAwariaDto } from '../dtos/create-awaria.dto';
 import { Gateway } from '../../../gateway/gateway';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
@@ -17,6 +17,25 @@ export class AwariaService {
   ) {}
   async awariaList() {
     const awarie = await this.awariaRepository.find({
+      where: { status: Not(3) },
+      relations: {
+        stanowisko: true,
+        pracownik: true,
+      },
+      select: {
+        pracownik: {
+          imie: true,
+          nazwisko: true,
+        },
+      },
+    });
+
+    return awarie;
+  }
+
+  async finishedAwariaList() {
+    const awarie = await this.awariaRepository.find({
+      where: { status: 3 },
       relations: {
         stanowisko: true,
         pracownik: true,
