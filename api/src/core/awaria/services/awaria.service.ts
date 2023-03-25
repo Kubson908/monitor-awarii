@@ -102,7 +102,6 @@ export class AwariaService {
           },
         },
       });
-      console.log(updated);
       this.gateway.server.emit('claimedAwaria', { updated });
     } catch (e) {
       throw new HttpException(
