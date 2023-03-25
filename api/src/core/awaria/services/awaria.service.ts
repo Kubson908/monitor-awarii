@@ -76,7 +76,7 @@ export class AwariaService {
     newAwaria.opis_awarii = createAwariaDto.opis_awarii;
     newAwaria.priorytet = createAwariaDto.priorytet;
     newAwaria.stanowisko = stanowisko;
-    newAwaria.status = createAwariaDto.status;
+    newAwaria.status = 1;
 
     await this.awariaRepository.save(newAwaria);
 
