@@ -23,7 +23,6 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload, {
         secret: process.env.SECRET,
-        expiresIn: '1d',
       }),
     };
   }
