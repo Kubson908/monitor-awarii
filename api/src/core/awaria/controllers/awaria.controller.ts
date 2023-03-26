@@ -4,9 +4,9 @@ import {
   Get,
   Param,
   Post,
-  Patch, 
+  Patch,
   Headers,
-  Request
+  Request,
 } from '@nestjs/common';
 
 import { AwariaService } from '../services/awaria.service';
@@ -28,6 +28,11 @@ export class AwariaController {
     return this.awariaService.finishedAwariaList();
   }
 
+  @Get('/stanowisko/:id')
+  awariaListByStanowisko(@Param('id') id: string) {
+    return this.awariaService.awariaListByStanowisko(id);
+  }
+
   @Get(':id')
   awariaById(@Param('id') id: string) {
     return this.awariaService.awariaById(id);
@@ -44,6 +49,6 @@ export class AwariaController {
   @Roles(Role.Pracownik)
   @Patch('/:id/ukoncz')
   finishAwaria(@Param('id') id: string, @Request() req) {
-    return this.awariaService.finishAwaria(id, req)
-  } 
+    return this.awariaService.finishAwaria(id, req);
+  }
 }

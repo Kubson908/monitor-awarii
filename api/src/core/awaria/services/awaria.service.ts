@@ -51,6 +51,27 @@ export class AwariaService {
     return awarie;
   }
 
+  async awariaListByStanowisko(id) {
+    const stanowisko = await this.stanowiskoRepository.findOne({
+      where: { id: id },
+    });
+    const awarie = await this.awariaRepository.find({
+      where: { status: Not(3), stanowisko: stanowisko },
+      relations: {
+        stanowisko: true,
+        pracownik: true,
+      },
+      select: {
+        pracownik: {
+          imie: true,
+          nazwisko: true,
+        },
+      },
+    });
+
+    return awarie;
+  }
+
   async awariaById(id) {
     const awaria = await this.awariaRepository.findOneBy({ id: id });
     if (awaria) return awaria;

@@ -7,11 +7,7 @@ import { JwtStrategy } from './jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [PracownikModule, PassportModule, JwtModule.register({
-    secret: process.env.SECRET,
-    signOptions: { expiresIn: '1d' },
-  })
-],
+  imports: [PracownikModule, PassportModule, JwtModule.register({})],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
 })
