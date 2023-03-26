@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PracownikService } from '../pracownik/services/pracownik.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -12,7 +12,7 @@ export class AuthService {
   ) {}
   async validatePracownik(username: string, pass: string): Promise<any> {
     const user = await this.pracownikService.pracownikByLogin(username);
-    if (user && await bcrypt.compare(pass, user.haslo)) {
+    if (user && (await bcrypt.compare(pass, user.haslo))) {
       const { haslo, ...result } = user;
       return result;
     }
@@ -21,7 +21,10 @@ export class AuthService {
   async login(loginDto: LoginDto) {
     const payload = { loginDto };
     return {
-      access_token: this.jwtService.sign(payload, {secret: process.env.SECRET}),
+      access_token: this.jwtService.sign(payload, {
+        secret: process.env.SECRET,
+        expiresIn: '1d',
+      }),
     };
   }
 }
