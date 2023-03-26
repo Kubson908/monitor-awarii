@@ -98,7 +98,8 @@ export class AwariaService {
         'Nie znaleziono stanowiska o podanym ID',
         HttpStatus.NOT_FOUND,
       );
-
+    
+    newAwaria.mozna_pracowac = createAwariaDto.mozna_pracowac;
     newAwaria.opis_awarii = createAwariaDto.opis_awarii;
     newAwaria.priorytet = createAwariaDto.priorytet;
     newAwaria.stanowisko = stanowisko;
