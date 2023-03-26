@@ -55,6 +55,11 @@ export class AwariaService {
     const stanowisko = await this.stanowiskoRepository.findOne({
       where: { id: id },
     });
+    if (!stanowisko)
+      throw new HttpException(
+        'Nie znaleziono stanowiska o podanym ID',
+        HttpStatus.NOT_FOUND,
+      );
     const awarie = await this.awariaRepository.find({
       where: { status: Not(3), stanowisko: stanowisko },
       relations: {
