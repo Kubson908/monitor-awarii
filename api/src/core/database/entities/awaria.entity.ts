@@ -1,51 +1,63 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, OneToOne, JoinColumn } from "typeorm"
-import { Pracownik, Stanowisko } from "./";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Pracownik, Stanowisko } from './';
 @Entity()
 export class Awaria {
-    @PrimaryGeneratedColumn({
-        type: "int",
-    })
-    id: number;
+  @PrimaryGeneratedColumn({
+    type: 'int',
+  })
+  id: number;
 
-    @Column({
-        type: "varchar",
-        nullable: false
-    })
-    opis_awarii: string;
+  @Column({
+    type: 'tinyint',
+    nullable: false,
+  })
+  mozna_pracowac: boolean;
 
-    @Column({
-        type: "integer",
-        nullable: false,
-    })
-    status: number;
+  @Column({
+    type: 'varchar',
+    nullable: false,
+  })
+  opis_awarii: string;
 
-    @Column({
-        type: "integer",
-        nullable: false,
-    })
-    priorytet: number;
+  @Column({
+    type: 'integer',
+    nullable: false,
+  })
+  status: number;
 
-    @CreateDateColumn()
-    data_zgloszenia: string;
+  @Column({
+    type: 'integer',
+    nullable: false,
+  })
+  priorytet: number;
 
-    @Column({
-        type: "datetime",
-        nullable: true
-    })
-    data_podjecia: string;
+  @CreateDateColumn()
+  data_zgloszenia: string;
 
-    @Column({
-        type: "datetime",
-        nullable: true
-    })
-    data_naprawy: string;
+  @Column({
+    type: 'datetime',
+    nullable: true,
+  })
+  data_podjecia: string;
 
-    @ManyToOne(type => Pracownik)
-    @JoinColumn({name: "id_pracownika"})
-    pracownik: Pracownik
+  @Column({
+    type: 'datetime',
+    nullable: true,
+  })
+  data_naprawy: string;
 
-    @ManyToOne(type => Stanowisko)
-    @JoinColumn({name: "id_stanowiska"})
-    stanowisko: Stanowisko
+  @ManyToOne((type) => Pracownik)
+  @JoinColumn({ name: 'id_pracownika' })
+  pracownik: Pracownik;
 
+  @ManyToOne((type) => Stanowisko)
+  @JoinColumn({ name: 'id_stanowiska' })
+  stanowisko: Stanowisko;
 }
