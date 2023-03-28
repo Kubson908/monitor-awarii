@@ -16,6 +16,7 @@ import * as chalk from 'chalk';
     credentials: true,
     transports: ['websocket', 'polling'],
   },
+  allowEIO3: true,
 })
 export class Gateway implements OnModuleInit {
   @WebSocketServer()
@@ -25,20 +26,10 @@ export class Gateway implements OnModuleInit {
     let clientCount = 0;
     this.server.on('connection', (socket) => {
       clientCount++,
-        console.log(
-          chalk.green('Connected: '),
-          socket.id,
-          ' | Client count: ',
-          clientCount,
-        );
+      console.log(chalk.green('Connected: '), socket.id, ' | Client count: ', clientCount);
       socket.on('disconnecting', () => {
         clientCount--;
-        console.log(
-          chalk.red('Disconnected: '),
-          socket.id,
-          ' | Client count: ',
-          clientCount,
-        );
+        console.log(chalk.red('Disconnected: '), socket.id, ' | Client count: ', clientCount);
       });
     });
   }
