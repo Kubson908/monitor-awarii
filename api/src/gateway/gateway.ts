@@ -10,13 +10,7 @@ import { Socket } from 'net';
 import { Server } from 'socket.io';
 import * as chalk from 'chalk';
 
-@WebSocketGateway({
-  cors: {
-    origin: '*',
-    credentials: true,
-    transports: ['websocket', 'polling'],
-  }
-})
+@WebSocketGateway({ cors: true })
 export class Gateway implements OnModuleInit {
   @WebSocketServer()
   server: Server;
