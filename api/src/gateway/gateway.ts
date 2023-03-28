@@ -11,11 +11,7 @@ import { Server } from 'socket.io';
 import * as chalk from 'chalk';
 
 @WebSocketGateway({
-  cors: {
-    origin: '*',
-    credentials: true,
-    transports: ['websocket', 'polling'],
-  },
+  cors: true,
   allowEIO3: true,
 })
 export class Gateway implements OnModuleInit {
