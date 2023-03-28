@@ -13,7 +13,7 @@ import * as chalk from 'chalk';
 @WebSocketGateway({
   cors: {
     origin: '*',
-    credentials: true,
+    credentials: false,
     transports: ['websocket', 'polling'],
   },
 })
