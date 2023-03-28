@@ -12,7 +12,7 @@ import * as chalk from 'chalk';
 
 @WebSocketGateway({
   cors: {
-    origin: process.env.ORIGIN,
+    origin: 'http://localhost:3000',
     credentials: true,
     transports: ['websocket', 'polling'],
   },
