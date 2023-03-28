@@ -12,8 +12,8 @@ import * as chalk from 'chalk';
 
 @WebSocketGateway({
   cors: {
-    origin: '*',
-    credentials: false,
+    origin: process.env.ORIGIN,
+    credentials: true,
     transports: ['websocket', 'polling'],
   },
 })
