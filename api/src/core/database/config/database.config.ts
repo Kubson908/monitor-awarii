@@ -13,4 +13,7 @@ export const DB_Config: SqlServerConnectionOptions = {
   password: process.env.DBPASS,
   entities: [Awaria, Pracownik, Raport, Stanowisko],
   synchronize: true,
+  extra: {
+    charset: 'utf8mb4_unicode_ci',
+  },
 };
