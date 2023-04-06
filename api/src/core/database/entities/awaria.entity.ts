@@ -23,6 +23,7 @@ export class Awaria {
   @Column({
     type: 'varchar',
     nullable: false,
+    length: 500,
   })
   opis_awarii: string;
 
