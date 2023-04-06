@@ -12,6 +12,7 @@ import { DB_Config } from './core/database/config/database.config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './core/auth/jwt.guard';
 import { JwtService } from '@nestjs/jwt';
+import { StreamModule } from './core/stream/stream.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { JwtService } from '@nestjs/jwt';
     GatewayModule,
     AuthModule,
     PracownikModule,
-    TypeOrmModule.forRoot(DB_Config)
+    TypeOrmModule.forRoot(DB_Config),
+    StreamModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, {provide: APP_GUARD, useClass: JwtGuard}, JwtService],

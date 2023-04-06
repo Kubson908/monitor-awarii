@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
@@ -37,8 +38,10 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dependencies": "^0.0.1",
+    "fluent-ffmpeg": "^2.1.2",
     "mssql": "^7.3.5",
     "mysql2": "^3.2.0",
+    "node-rtsp-stream": "^0.0.9",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",

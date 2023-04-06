@@ -15,14 +15,14 @@ export class Stanowisko {
 
     @Column({
         type: "varchar",
-        length: 999,
+        length: 1000,
         nullable: false,
     })
     nazwa: string;
 
     @Column({
         type: "varchar",
-        length: 999,
+        length: 1000,
         nullable: false,
     })
     opis: string;

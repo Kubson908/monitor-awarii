@@ -6,10 +6,8 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './core/auth/auth.service';
 import { LocalAuthGuard } from './core/auth/local-auth.guard';
-import { LoginDto } from './core/auth/login.dto';
 import { Public } from './core/decorators/public.decorator';
 
 @Controller()
