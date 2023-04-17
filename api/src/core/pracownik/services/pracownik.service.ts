@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Pracownik } from 'src/core/database/entities';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreatePracownikDto } from '../dtos/create-pracownik.dto';
 import * as bcrypt from 'bcrypt'
@@ -13,7 +13,14 @@ export class PracownikService {
   ) {}
 
   pracownikList() {
-    return this.pracownikRepository;
+    const pracownicy = this.pracownikRepository.find({
+      where: {rola: Not("monitor")},
+      select: {
+        imie: true,
+        nazwisko: true,
+      }
+    })
+    return pracownicy;
   }
 
   async pracownikByLogin(login: string): Promise<Pracownik> {
