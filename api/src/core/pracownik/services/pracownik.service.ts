@@ -11,6 +11,11 @@ export class PracownikService {
     @InjectRepository(Pracownik)
     private pracownikRepository: Repository<Pracownik>,
   ) {}
+
+  pracownikList() {
+    return this.pracownikRepository;
+  }
+
   async pracownikByLogin(login: string): Promise<Pracownik> {
     const pracownik = await this.pracownikRepository.findOneBy({
       login: login,

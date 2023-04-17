@@ -3,20 +3,25 @@ import * as Stream from 'node-rtsp-stream';
 import * as fPath from '@ffmpeg-installer/ffmpeg';
 @Injectable()
 export class StreamService {
-  streams: { [key: string]: number } = {};
+  private streams: { [key: number]: Stream } = {};
   liveStream(camera: number) {
-    const path = fPath.path;
-    if (!((8080 + camera).toString() in this.streams)) {
+    if (this.streams[8080 + camera]) {
+      if (this.streams[8080 + camera].inputStreamStarted === false) {
+        this.streams[8080 + camera].startMpeg1Stream();
+        this.streams[8080 + camera].pipeStreamToSocketServer();
+      }
+      return { port: 8080 + camera };
+    } else {
+      const path = fPath.path;
       const stream = new Stream({
         name: 'Live stream',
-        streamUrl:
-          'rtsp://freja.hiof.no:1935/rtplive/definst/hessdalen02.stream',
+        streamUrl: 'rtsp://admin:admin@192.168.0.2:554/11',
 
         wsPort: 8080 + camera,
         ffmpegPath: path,
       });
-      this.streams[(8080 + camera).toString()] = stream;
+      this.streams[8080 + camera] = stream;
+      return { port: 8080 + camera };
     }
-    return { port: 8080 + camera };
   }
 }

@@ -22,7 +22,7 @@ import { StreamModule } from './core/stream/stream.module';
     AuthModule,
     PracownikModule,
     TypeOrmModule.forRoot(DB_Config),
-    StreamModule
+    // StreamModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, {provide: APP_GUARD, useClass: JwtGuard}, JwtService],
