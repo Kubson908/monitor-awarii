@@ -32,7 +32,6 @@ export class AwariaController {
   awariaListByStanowisko(@Param('id') id: string) {
     return this.awariaService.awariaListByStanowisko(id);
   }
-
   @Get(':id')
   awariaById(@Param('id') id: string) {
     return this.awariaService.awariaById(id);
@@ -45,6 +44,11 @@ export class AwariaController {
   @Patch('/:id/podejmij')
   claimAwaria(@Param('id') id: string, @Request() req) {
     return this.awariaService.claimAwaria(id, req);
+  }
+  @Roles(Role.Monitor)
+  @Patch('/:idAwarii/:idPracownika/przypisz')
+  assignAwaria(@Param('idAwarii') idAwarii: string, @Param('idPracownika') idPracownika: string) {
+    return this.awariaService.assignAwaria(idAwarii, idPracownika);
   }
   @Roles(Role.Pracownik)
   @Patch('/:id/ukoncz')
