@@ -157,6 +157,53 @@ export class AwariaService {
 
     return 'Success';
   }
+  
+  async assignAwaria(idAwarii, idPracownika) {
+    const pracownik = await this.pracownikRepository.findOneBy({
+      id: idPracownika,
+    });
+    const to_update = await this.awariaRepository.findOneBy({ id: idAwarii });
+    if (!pracownik) {
+      throw new HttpException(
+        'Nie znaleziono pracownika o podanym ID',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    if (to_update.status != 1) {
+      throw new HttpException(
+        'Ta awaria została już podjęta',
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    try {
+      await this.awariaRepository.update(idAwarii, {
+        status: 2,
+        pracownik: pracownik,
+      });
+      const updated = await this.awariaRepository.findOne({
+        where: { id: idAwarii },
+        relations: {
+          stanowisko: true,
+          pracownik: true,
+        },
+        select: {
+          pracownik: {
+            imie: true,
+            nazwisko: true,
+          },
+        },
+      });
+      this.gateway.server.emit('assignedAwaria', { updated });
+    } catch (e) {
+      throw new HttpException(
+        `Nie znaleziono awarii o podanym id równym < ${idAwarii} >`,
+        HttpStatus.NO_CONTENT,
+      );
+    }
+
+    return 'Success';
+  }
 
   async finishAwaria(id, req) {
     const pracownik = await this.pracownikRepository.findOneBy({
