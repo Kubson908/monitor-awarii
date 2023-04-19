@@ -16,6 +16,7 @@ export class PracownikService {
     const pracownicy = this.pracownikRepository.find({
       where: {rola: Not("monitor")},
       select: {
+        id: true,
         imie: true,
         nazwisko: true,
       }
