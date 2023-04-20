@@ -13,6 +13,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './core/auth/jwt.guard';
 import { JwtService } from '@nestjs/jwt';
 import { StreamModule } from './core/stream/stream.module';
+import { Stanowisko } from './core/database/entities';
+import { StanowiskoModule } from './core/stanowisko/stanowisko.module';
 
 @Module({
   imports: [
@@ -22,7 +24,8 @@ import { StreamModule } from './core/stream/stream.module';
     AuthModule,
     PracownikModule,
     TypeOrmModule.forRoot(DB_Config),
-    // StreamModule
+    StreamModule,
+    StanowiskoModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, {provide: APP_GUARD, useClass: JwtGuard}, JwtService],

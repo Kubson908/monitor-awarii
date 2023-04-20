@@ -5,7 +5,6 @@ import {
   Param,
   Post,
   Patch,
-  Headers,
   Request,
 } from '@nestjs/common';
 
@@ -47,7 +46,10 @@ export class AwariaController {
   }
   @Roles(Role.Monitor)
   @Patch('/:idAwarii/:idPracownika/przypisz')
-  assignAwaria(@Param('idAwarii') idAwarii: string, @Param('idPracownika') idPracownika: string) {
+  assignAwaria(
+    @Param('idAwarii') idAwarii: string,
+    @Param('idPracownika') idPracownika: string,
+  ) {
     return this.awariaService.assignAwaria(idAwarii, idPracownika);
   }
   @Roles(Role.Pracownik)
