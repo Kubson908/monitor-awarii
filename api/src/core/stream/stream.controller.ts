@@ -9,4 +9,12 @@ export class StreamController {
     streamCamera(@Param('camera') camera: number) {
         return this.streamService.liveStream(camera);
     }
+    @Get('/disconnect/:camera')
+    disconnectStream(@Param('camera') camera: number) {
+        return this.streamService.disconnectStream(camera);
+    }
+    @Get('/img')
+    async getImg() {
+        return this.streamService.getImg();
+    }
 }
