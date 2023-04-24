@@ -131,7 +131,7 @@ export class AwariaService {
         HttpStatus.CONFLICT,
       );
     }
-    var time = new Date(Date.now());
+    let time = new Date(Date.now());
     time.setTime(time.getTime() + 2 * 60 * 60 * 1000);
     const date = time.toISOString();
     try {
@@ -235,7 +235,7 @@ export class AwariaService {
         HttpStatus.I_AM_A_TEAPOT,
       );
     }
-    var time = new Date(Date.now());
+    let time = new Date(Date.now());
     time.setTime(time.getTime() + 2 * 60 * 60 * 1000);
     const date = time.toISOString();
     try {
@@ -279,7 +279,7 @@ export class AwariaService {
         stanowisko: true,
       },
     });
-
+    awarie.sort((a, b) => a.data_podjecia > b.data_podjecia ? 1 : -1)
     return awarie;
   }
 }
