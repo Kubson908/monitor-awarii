@@ -13,7 +13,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './core/auth/jwt.guard';
 import { JwtService } from '@nestjs/jwt';
 import { StreamModule } from './core/stream/stream.module';
-import { Stanowisko } from './core/database/entities';
 import { StanowiskoModule } from './core/stanowisko/stanowisko.module';
 
 @Module({
