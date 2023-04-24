@@ -131,11 +131,14 @@ export class AwariaService {
         HttpStatus.CONFLICT,
       );
     }
-
+    var time = new Date(Date.now());
+    time.setTime(time.getTime() + 2 * 60 * 60 * 1000);
+    const date = time.toISOString();
     try {
       await this.awariaRepository.update(id, {
         status: 2,
         pracownik: pracownik,
+        data_podjecia: date,
       });
       const updated = await this.awariaRepository.findOne({
         where: { id: id },
@@ -160,7 +163,7 @@ export class AwariaService {
 
     return 'Success';
   }
-  
+
   async assignAwaria(idAwarii, idPracownika) {
     const pracownik = await this.pracownikRepository.findOneBy({
       id: idPracownika,
@@ -232,9 +235,11 @@ export class AwariaService {
         HttpStatus.I_AM_A_TEAPOT,
       );
     }
-
+    var time = new Date(Date.now());
+    time.setTime(time.getTime() + 2 * 60 * 60 * 1000);
+    const date = time.toISOString();
     try {
-      await this.awariaRepository.update(id, { status: 3 });
+      await this.awariaRepository.update(id, { status: 3, data_naprawy: date });
       const updated = await this.awariaRepository.findOne({
         where: { id: id },
         relations: {
@@ -257,5 +262,24 @@ export class AwariaService {
     }
 
     return 'Success';
+  }
+
+  async awariaListByPracownik(id) {
+    const pracownik = await this.pracownikRepository.findOne({
+      where: { id: id },
+    });
+    if (!pracownik)
+      throw new HttpException(
+        'Nie znaleziono pracownika o podanym ID',
+        HttpStatus.NOT_FOUND,
+      );
+    const awarie = await this.awariaRepository.find({
+      where: { status: Not(3), pracownik: pracownik },
+      relations: {
+        stanowisko: true,
+      },
+    });
+
+    return awarie;
   }
 }

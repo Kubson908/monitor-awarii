@@ -57,4 +57,9 @@ export class AwariaController {
   finishAwaria(@Param('id') id: string, @Request() req) {
     return this.awariaService.finishAwaria(id, req);
   }
+
+  @Get('/pracownik/:id')
+  awariaListByPracownik(@Param('id') id: string) {
+    return this.awariaService.awariaListByPracownik(id);
+  }
 }
