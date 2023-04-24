@@ -24,6 +24,7 @@ export class AwariaService {
       },
       select: {
         pracownik: {
+          id: true,
           imie: true,
           nazwisko: true,
         },
@@ -42,6 +43,7 @@ export class AwariaService {
       },
       select: {
         pracownik: {
+          id: true,
           imie: true,
           nazwisko: true,
         },
