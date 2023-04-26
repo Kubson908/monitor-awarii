@@ -195,6 +195,7 @@ export class AwariaService {
         },
         select: {
           pracownik: {
+            id: true,
             imie: true,
             nazwisko: true,
           },
@@ -219,7 +220,14 @@ export class AwariaService {
       where: {id: id},
       relations: {
         pracownik: true
-      }
+      },
+      select: {
+        pracownik: {
+          id: true,
+          imie: true,
+          nazwisko: true,
+        },
+      },
      });
     if (!pracownik) {
       throw new HttpException(
