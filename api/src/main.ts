@@ -11,5 +11,6 @@ async function bootstrap() {
   await app.setGlobalPrefix('api');
   await app.useGlobalPipes(new ValidationPipe({ transform: true }));
   await app.listen(process.env.PORT);
+  global.streams = {};
 }
 bootstrap();

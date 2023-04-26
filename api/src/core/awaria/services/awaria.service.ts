@@ -215,7 +215,12 @@ export class AwariaService {
     const pracownik = await this.pracownikRepository.findOneBy({
       id: req.user.id,
     });
-    const to_update = await this.awariaRepository.findOneBy({ id: id });
+    const to_update = await this.awariaRepository.findOne({ 
+      where: {id: id},
+      relations: {
+        pracownik: true
+      }
+     });
     if (!pracownik) {
       throw new HttpException(
         'Nie znaleziono pracownika o podanym ID',
@@ -228,11 +233,10 @@ export class AwariaService {
         HttpStatus.CONFLICT,
       );
     }
-
-    if (pracownik.id != req.user.id) {
+    if (to_update.pracownik.id != req.user.id) {
       throw new HttpException(
-        'Serwer może jedynie parzyć herbatę',
-        HttpStatus.I_AM_A_TEAPOT,
+        'Nie możesz ukończyć nie swojej awarii',
+        HttpStatus.CONFLICT,
       );
     }
     let time = new Date(Date.now());
