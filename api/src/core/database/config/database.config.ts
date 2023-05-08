@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { Awaria, Pracownik, Raport, Stanowisko } from '../entities';
+import { Awaria, Pracownik, Stanowisko } from '../entities';
 import { SqlServerConnectionOptions } from 'typeorm/driver/sqlserver/SqlServerConnectionOptions';
 
 dotenv.config();
@@ -11,7 +11,7 @@ export const DB_Config: SqlServerConnectionOptions = {
   database: process.env.DBNAME,
   username: process.env.DBUSERNAME,
   password: process.env.DBPASS,
-  entities: [Awaria, Pracownik, Raport, Stanowisko],
+  entities: [Awaria, Pracownik, Stanowisko],
   synchronize: true,
   extra: {
     charset: 'utf8mb4_unicode_ci',

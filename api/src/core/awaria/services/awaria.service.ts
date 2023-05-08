@@ -165,6 +165,7 @@ export class AwariaService {
   }
 
   async assignAwaria(idAwarii, idPracownika) {
+    // console.log(this.gateway.server.)
     const pracownik = await this.pracownikRepository.findOneBy({
       id: idPracownika,
     });
@@ -201,7 +202,8 @@ export class AwariaService {
           },
         },
       });
-      this.gateway.server.emit('assignedAwaria', { updated });
+      // poprawić na koniec
+      this.gateway.server.to("6").to(idPracownika).emit('assignedAwaria', { updated });
     } catch (e) {
       throw new HttpException(
         `Nie znaleziono awarii o podanym id równym < ${idAwarii} >`,

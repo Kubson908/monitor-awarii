@@ -25,11 +25,25 @@ export class Gateway implements OnModuleInit {
   onModuleInit() {
     let clientCount = 0;
     this.server.on('connection', (socket) => {
+      // poprawić na koniec
+      let user = JSON.parse(socket.handshake.query.user.toString());
+      socket.join(user.id.toString());
+      console.log(socket.handshake.query.user);
       clientCount++,
-      console.log(chalk.green('Connected: '), socket.id, ' | Client count: ', clientCount);
+        console.log(
+          chalk.green('Connected: '),
+          socket.id,
+          ' | Client count: ',
+          clientCount,
+        );
       socket.on('disconnecting', () => {
         clientCount--;
-        console.log(chalk.red('Disconnected: '), socket.id, ' | Client count: ', clientCount);
+        console.log(
+          chalk.red('Disconnected: '),
+          socket.id,
+          ' | Client count: ',
+          clientCount,
+        );
       });
     });
   }

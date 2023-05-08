@@ -10,8 +10,4 @@ export class StreamController {
         return this.streamService.liveStream(camera);
     }
 
-    // @Get('/img')
-    // async getImg() {
-    //     return this.streamService.getImg();
-    // }
 }

@@ -27,6 +27,6 @@ import { StanowiskoModule } from './core/stanowisko/stanowisko.module';
     StanowiskoModule
   ],
   controllers: [AppController],
-  providers: [AppService, AuthService, {provide: APP_GUARD, useClass: JwtGuard}, JwtService],
+  providers: [AuthService, {provide: APP_GUARD, useClass: JwtGuard}, JwtService],
 })
 export class AppModule {}
