@@ -23,20 +23,4 @@ export class StreamService {
     }
   }
 
-  // async getImg() {
-  //   const res = await axios({
-  //     method: 'GET',
-  //     url: 'http://192.168.0.2/tmpfs/auto.jpg',
-  //     auth: { username: 'admin', password: 'admin' },
-  //     responseType: 'arraybuffer',
-  //   })
-  //     .then((response) =>
-  //       Buffer.from(response.data, 'binary').toString('base64'),
-  //     )
-  //     .catch(() => {
-  //       throw new ForbiddenException('Camera OFF');
-  //     });
-
-  //   return res;
-  // }
 }
