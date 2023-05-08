@@ -30,7 +30,7 @@ export class Gateway implements OnModuleInit {
       if (typeof socket.handshake.query.user !== 'undefined') {
         user = JSON.parse(socket.handshake.query.user.toString());
         socket.join(user.id.toString());
-      }
+      } 
       clientCount++,
         console.log(
           chalk.green('Connected: '),
