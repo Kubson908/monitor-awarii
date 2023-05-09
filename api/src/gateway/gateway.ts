@@ -9,28 +9,33 @@ import {
 import { Socket } from 'net';
 import { Server } from 'socket.io';
 import * as chalk from 'chalk';
+import { JwtService } from '@nestjs/jwt';
 
 @WebSocketGateway({
   cors: {
     origin: ['http://localhost:3000', 'http://192.168.0.107:3000'],
     credentials: true,
-    transports: ['websocket', 'polling'],
+    transports: ['polling'],
   },
   allowEIO3: true,
 })
-export class Gateway implements OnModuleInit {
+  export class Gateway implements OnModuleInit {
+  constructor(
+    private jwtService: JwtService
+  ) {}
+
   @WebSocketServer()
   server: Server;
 
   onModuleInit() {
     let clientCount = 0;
     this.server.on('connection', (socket) => {
-      // poprawić na koniec
       let user;
-      if (typeof socket.handshake.query.user !== 'undefined') {
-        user = JSON.parse(socket.handshake.query.user.toString());
-        socket.join(user.id.toString());
-      } 
+      if (socket.handshake.headers.token) {
+        let token = socket.handshake.headers.token.toString()
+        user = this.jwtService.decode(decodeURIComponent(token));
+        socket.join(user.loginDto.id.toString());        
+      }
       clientCount++,
         console.log(
           chalk.green('Connected: '),
