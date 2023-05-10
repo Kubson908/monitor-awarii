@@ -183,10 +183,14 @@ export class AwariaService {
       );
     }
 
+    let time = new Date(Date.now());
+    time.setTime(time.getTime() + 2 * 60 * 60 * 1000);
+    const date = time.toISOString();
     try {
       await this.awariaRepository.update(idAwarii, {
         status: 2,
         pracownik: pracownik,
+        data_podjecia: date,
       });
       const updated = await this.awariaRepository.findOne({
         where: { id: idAwarii },
