@@ -90,6 +90,12 @@ export class AwariaService {
   }
 
   async createAwaria(createAwariaDto: CreateAwariaDto) {
+    if (createAwariaDto.opis_awarii.length > 500) {
+      throw new HttpException(
+        'Opis awarii jest zbyt długi',
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
     const newAwaria = new Awaria();
     const stanowisko = await this.stanowiskoRepository.findOne({
       where: { id: createAwariaDto.stanowisko },
@@ -148,6 +154,7 @@ export class AwariaService {
         },
         select: {
           pracownik: {
+            id: true,
             imie: true,
             nazwisko: true,
           },
@@ -266,6 +273,7 @@ export class AwariaService {
         },
         select: {
           pracownik: {
+            id: true,
             imie: true,
             nazwisko: true,
           },
