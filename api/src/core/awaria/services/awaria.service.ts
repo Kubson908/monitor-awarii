@@ -81,7 +81,20 @@ export class AwariaService {
   }
 
   async awariaById(id) {
-    const awaria = await this.awariaRepository.findOneBy({ id: id });
+    const awaria = await this.awariaRepository.findOne({
+      where: { id: id },
+      relations: {
+        stanowisko: true,
+        pracownik: true,
+      },
+      select: {
+        pracownik: {
+          id: true,
+          imie: true,
+          nazwisko: true,
+        },
+      },
+    });
     if (awaria) return awaria;
     throw new HttpException(
       'Nie znaleziono awarii o podanym ID',
@@ -214,7 +227,10 @@ export class AwariaService {
         },
       });
       // poprawić na koniec
-      this.gateway.server.to("6").to(idPracownika).emit('assignedAwaria', { updated });
+      this.gateway.server
+        .to('6')
+        .to(idPracownika)
+        .emit('assignedAwaria', { updated });
     } catch (e) {
       throw new HttpException(
         `Nie znaleziono awarii o podanym id równym < ${idAwarii} >`,
@@ -229,10 +245,10 @@ export class AwariaService {
     const pracownik = await this.pracownikRepository.findOneBy({
       id: req.user.id,
     });
-    const to_update = await this.awariaRepository.findOne({ 
-      where: {id: id},
+    const to_update = await this.awariaRepository.findOne({
+      where: { id: id },
       relations: {
-        pracownik: true
+        pracownik: true,
       },
       select: {
         pracownik: {
@@ -241,7 +257,7 @@ export class AwariaService {
           nazwisko: true,
         },
       },
-     });
+    });
     if (!pracownik) {
       throw new HttpException(
         'Nie znaleziono pracownika o podanym ID',
@@ -305,7 +321,7 @@ export class AwariaService {
         stanowisko: true,
       },
     });
-    awarie.sort((a, b) => a.data_podjecia > b.data_podjecia ? 1 : -1)
+    awarie.sort((a, b) => (a.data_podjecia > b.data_podjecia ? 1 : -1));
     return awarie;
   }
 }
