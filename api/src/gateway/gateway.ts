@@ -31,12 +31,10 @@ export class Gateway implements OnModuleInit {
       let user;
       if (socket.handshake.headers.token) {
         let token = socket.handshake.headers.token.toString();
-        console.log(token);
         user = this.jwtService.decode(decodeURIComponent(token));
         socket.join(user.loginDto.id.toString());
       } else if (socket.handshake.query.token) {
         let token = socket.handshake.query.token.toString();
-        console.log(token);
         user = this.jwtService.decode(decodeURIComponent(token));
         socket.join(user.loginDto.id.toString());
       }
