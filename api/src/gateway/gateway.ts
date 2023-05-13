@@ -19,10 +19,8 @@ import { JwtService } from '@nestjs/jwt';
   },
   allowEIO3: true,
 })
-  export class Gateway implements OnModuleInit {
-  constructor(
-    private jwtService: JwtService
-  ) {}
+export class Gateway implements OnModuleInit {
+  constructor(private jwtService: JwtService) {}
 
   @WebSocketServer()
   server: Server;
@@ -32,9 +30,15 @@ import { JwtService } from '@nestjs/jwt';
     this.server.on('connection', (socket) => {
       let user;
       if (socket.handshake.headers.token) {
-        let token = socket.handshake.headers.token.toString()
+        let token = socket.handshake.headers.token.toString();
+        console.log(token);
         user = this.jwtService.decode(decodeURIComponent(token));
-        socket.join(user.loginDto.id.toString());        
+        socket.join(user.loginDto.id.toString());
+      } else if (socket.handshake.query.token) {
+        let token = socket.handshake.query.token.toString();
+        console.log(token);
+        user = this.jwtService.decode(decodeURIComponent(token));
+        socket.join(user.loginDto.id.toString());
       }
       clientCount++,
         console.log(
