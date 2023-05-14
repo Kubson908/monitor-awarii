@@ -10,8 +10,15 @@ export class StanowiskoService {
     private stanowiskoRepository: Repository<Stanowisko>,
   ) {}
 
-  stanowiskoList() {
-    const stanowiska = this.stanowiskoRepository.find();
+  async stanowiskoList() {
+    const stanowiska = await this.stanowiskoRepository.find({
+      select: {
+        id: true,
+        kod: true,
+        opis: true,
+        nazwa: true,
+      },
+    });
     return stanowiska;
   }
 }
