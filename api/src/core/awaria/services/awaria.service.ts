@@ -28,6 +28,12 @@ export class AwariaService {
           imie: true,
           nazwisko: true,
         },
+        stanowisko: {
+          id: true,
+          kod: true,
+          opis: true,
+          nazwa: true,
+        },
       },
     });
 
@@ -46,6 +52,12 @@ export class AwariaService {
           id: true,
           imie: true,
           nazwisko: true,
+        },
+        stanowisko: {
+          id: true,
+          kod: true,
+          opis: true,
+          nazwa: true,
         },
       },
     });
@@ -74,6 +86,12 @@ export class AwariaService {
           imie: true,
           nazwisko: true,
         },
+        stanowisko: {
+          id: true,
+          kod: true,
+          opis: true,
+          nazwa: true,
+        },
       },
     });
 
@@ -92,6 +110,12 @@ export class AwariaService {
           id: true,
           imie: true,
           nazwisko: true,
+        },
+        stanowisko: {
+          id: true,
+          kod: true,
+          opis: true,
+          nazwa: true,
         },
       },
     });
@@ -112,6 +136,12 @@ export class AwariaService {
     const newAwaria = new Awaria();
     const stanowisko = await this.stanowiskoRepository.findOne({
       where: { id: createAwariaDto.stanowisko },
+      select: {
+        id: true,
+        kod: true,
+        opis: true,
+        nazwa: true,
+      },
     });
 
     if (!stanowisko)
@@ -171,6 +201,12 @@ export class AwariaService {
             imie: true,
             nazwisko: true,
           },
+          stanowisko: {
+            id: true,
+            kod: true,
+            opis: true,
+            nazwa: true,
+          },
         },
       });
       this.gateway.server.emit('claimedAwaria', { updated });
@@ -223,6 +259,12 @@ export class AwariaService {
             id: true,
             imie: true,
             nazwisko: true,
+          },
+          stanowisko: {
+            id: true,
+            kod: true,
+            opis: true,
+            nazwa: true,
           },
         },
       });
@@ -293,6 +335,12 @@ export class AwariaService {
             imie: true,
             nazwisko: true,
           },
+          stanowisko: {
+            id: true,
+            kod: true,
+            opis: true,
+            nazwa: true,
+          },
         },
       });
       this.gateway.server.emit('finishedAwaria', { updated });
@@ -319,6 +367,14 @@ export class AwariaService {
       where: { status: Not(3), pracownik: pracownik },
       relations: {
         stanowisko: true,
+      },
+      select: {
+        stanowisko: {
+          id: true,
+          kod: true,
+          opis: true,
+          nazwa: true,
+        },
       },
     });
     awarie.sort((a, b) => (a.data_podjecia > b.data_podjecia ? 1 : -1));
