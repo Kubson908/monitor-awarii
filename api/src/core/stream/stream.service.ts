@@ -12,11 +12,12 @@ export class StreamService {
     private stanowiskoRepository: Repository<Stanowisko>,
   ) {}
   async liveStream(workplace: number) {
-    let ip = (await this.stanowiskoRepository.findOne({
-      where: { id: workplace },
-      select: { kamera: true },
-    })).kamera;
-    console.log(ip);
+    let ip = (
+      await this.stanowiskoRepository.findOne({
+        where: { id: workplace },
+        select: { kamera: true },
+      })
+    ).kamera;
     if (global.streams[8080 + workplace]) {
       global.streams[8080 + workplace]++;
       return { port: 8080 + workplace };
