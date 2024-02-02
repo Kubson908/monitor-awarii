@@ -1,19 +1,19 @@
 {
   "name": "itm",
   "version": "1.0.0",
-  "description": "Projekt zespołowy realizowany w ramach przedmiotu o tej samej nazwie przez studentów kierunku Informatyka ISI z Wydziału Matematyki i Informatyki UWM",
+  "description": "Projekt zespołowy realizowany przez studentów kierunku Informatyka z Wydziału Matematyki i Informatyki UWM",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kubson908/Projekt_Zespolowy_ITM.git"
+    "url": "git+https://github.com/Kubson908/ITM_Team_Project.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Kubson908/Projekt_Zespolowy_ITM/issues"
+    "url": "https://github.com/Kubson908/ITM_Team_Project/issues"
   },
-  "homepage": "https://github.com/Kubson908/Projekt_Zespolowy_ITM#readme"
+  "homepage": "https://github.com/Kubson908/ITM_Team_Project#readme"
 }

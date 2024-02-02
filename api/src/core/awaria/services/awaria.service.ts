@@ -181,7 +181,7 @@ export class AwariaService {
       );
     }
     let time = new Date(Date.now());
-    time.setTime(time.getTime());
+    time.setTime(time.getTime() + 2 * 60 * 60 * 1000);
     const date = time.toISOString();
     try {
       await this.awariaRepository.update(id, {
@@ -240,7 +240,7 @@ export class AwariaService {
     }
 
     let time = new Date(Date.now());
-    time.setTime(time.getTime());
+    time.setTime(time.getTime() + 2 * 60 * 60 * 1000);
     const date = time.toISOString();
     try {
       await this.awariaRepository.update(idAwarii, {
@@ -319,7 +319,7 @@ export class AwariaService {
       );
     }
     let time = new Date(Date.now());
-    time.setTime(time.getTime());
+    time.setTime(time.getTime() + 2 * 60 * 60 * 1000);
     const date = time.toISOString();
     try {
       await this.awariaRepository.update(id, { status: 3, data_naprawy: date });
