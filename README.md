@@ -3,7 +3,7 @@
   <h1 align="center">🖥️ Malfunction monitor</h1>
 
   <p align="center">
-    The project was created for the subject "Team project" at the university.
+    The project was developed as part of the "Team Project" course at the university.
     <br />
     
   </p>
@@ -12,9 +12,9 @@
 
 ## About the project
 <div align="justify">
-  This is a part of a bigger project made by 4 teams. The web application is used to monitor machine malfunctions on a production hall. 
+  This is a part of a bigger project made by 4 teams. The web application is designed to monitor machine malfunctions in a production hall. 
   The application allows users to assign malfunction to worker by drag and drop functionality. 
-  User can also display image from a camera next to the position. In addition to the monitor application, we wrote a REST API common to all teams.
+  User can also display image from a camera next to the position. Besides the monitoring application, we developed a common REST API for all teams.
 </div>
 
 ## Built with
